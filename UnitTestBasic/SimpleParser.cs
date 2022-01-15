@@ -21,9 +21,14 @@ namespace UnitTestBasic
             else
             {
                 var result = numbers.Split(',').Sum(int.Parse);
-                Logger.LogToDb($"input = {numbers}, return = {result}");
+                LogToDb(numbers, result);
                 return result;
             }
+        }
+
+        protected virtual void LogToDb(string numbers, int result)
+        {
+            Logger.LogToDb($"input = {numbers}, return = {result}");
         }
     }
 }
