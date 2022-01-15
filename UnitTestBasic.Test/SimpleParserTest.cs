@@ -13,12 +13,13 @@ namespace UnitTestBasic.Test
             _parser = new SimpleParser();
         }
 
-        [Test]
+        [TestCase("0", TestName = "Should return 0")]
+        [TestCase("1,2", TestName = "Should return 3")]
         // Verify return value
-        public void SimpleParser_Should_Return_0()
+        public void SimpleParser_Should_Return_0(string numbers)
         {
             // Act
-            var result = CallParseAndSum();
+            var result = CallParseAndSum(numbers);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -27,13 +28,13 @@ namespace UnitTestBasic.Test
         // Verify object status
         public void SimpleParser_IsParserAndSumCalled_Should_Be_True()
         {
-            CallParseAndSum();
+            CallParseAndSum("0");
 
             Assert.IsTrue(_parser.IsParseAndSumCalled);
         }
-        private int CallParseAndSum()
+        private int CallParseAndSum(string numbers)
         {
-            return _parser.ParseAndSum("0");
+            return _parser.ParseAndSum(numbers);
         }
     }
 }
