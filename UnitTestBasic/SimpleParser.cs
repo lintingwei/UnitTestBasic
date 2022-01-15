@@ -4,8 +4,10 @@ namespace UnitTestBasic
 {
     public class SimpleParser
     {
+        public bool IsParseAndSumCalled { get; set; }  
         public int ParseAndSum(string numbers)
         {
+            IsParseAndSumCalled = true;
             if (numbers.Length == 0)
             {
                 return 0;

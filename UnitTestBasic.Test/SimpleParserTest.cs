@@ -16,5 +16,15 @@ namespace UnitTestBasic.Test
             // Assert
             Assert.AreEqual(0, result);
         }
+
+        [Test]
+        public void SimpleParser_IsParserAndSumCalled_Should_Be_True()
+        {
+            var parser = new SimpleParser();
+
+            parser.ParseAndSum(string.Empty);
+
+            Assert.IsTrue(parser.IsParseAndSumCalled);
+        }
     }
 }
