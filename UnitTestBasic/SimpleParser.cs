@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace UnitTestBasic
 {
@@ -19,9 +20,9 @@ namespace UnitTestBasic
             }
             else
             {
-                const string message = "I can only handle 0 or 1 numbers now!";
-                Logger.LogToDb(message);
-                throw new InvalidOperationException(message);
+                var result = numbers.Split(',').Sum(int.Parse);
+                Logger.LogToDb($"input = {numbers}, return = {result}");
+                return result;
             }
         }
     }
