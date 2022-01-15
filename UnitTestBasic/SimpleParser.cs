@@ -19,7 +19,9 @@ namespace UnitTestBasic
             }
             else
             {
-                throw new InvalidOperationException("I can only handle 0 or 1 numbers now!");
+                const string message = "I can only handle 0 or 1 numbers now!";
+                Logger.LogToDb(message);
+                throw new InvalidOperationException(message);
             }
         }
     }
