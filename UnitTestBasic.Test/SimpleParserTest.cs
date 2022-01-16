@@ -1,16 +1,19 @@
+using NSubstitute;
 using NUnit.Framework;
 
 namespace UnitTestBasic.Test
 {
     public class SimpleParserTest
     {
-        private FakeSimpleParser _parser;
+        private SimpleParser _parser;
+        private ILogger _logger;
 
         [SetUp]
         public void SetUp()
         {
             // Arrange
-            _parser = new FakeSimpleParser(new Logger());
+            _logger = Substitute.For<ILogger>();
+            _parser = new SimpleParser(_logger);
         }
 
         [TestCase("0", 0, TestName = "Should return 0")]
@@ -35,11 +38,11 @@ namespace UnitTestBasic.Test
 
         [Test]
         // verify object interact with other object
-        public void SimpleParser_IsLogToDbCalled_Should_Be_True()
+        public void SimpleParser_Should_Call_LogToDb()
         {
             CallParseAndSum("1,2");
 
-            Assert.IsTrue(_parser.IsLogToDbCalled);
+            _logger.Received().LogToDb(Arg.Any<string>());
         }
 
         [Test]
@@ -48,7 +51,7 @@ namespace UnitTestBasic.Test
         {
             CallParseAndSum("1");
 
-            Assert.IsFalse(_parser.IsLogToDbCalled);
+            _logger.DidNotReceive().LogToDb(Arg.Any<string>());
         }
 
         private int CallParseAndSum(string numbers)
@@ -57,15 +60,15 @@ namespace UnitTestBasic.Test
         }
     }
 
-    public class FakeSimpleParser : SimpleParser
-    {
-        public FakeSimpleParser(ILogger logger):base(logger)
-        {
-        }
-        public bool IsLogToDbCalled { get; set; }
-        protected override void LogToDb(string numbers, int result)
-        {
-            IsLogToDbCalled = true;
-        }
-    }
+    //public class FakeSimpleParser : SimpleParser
+    //{
+    //    public FakeSimpleParser(ILogger logger):base(logger)
+    //    {
+    //    }
+    //    public bool IsLogToDbCalled { get; set; }
+    //    protected override void LogToDb(string numbers, int result)
+    //    {
+    //        IsLogToDbCalled = true;
+    //    }
+    //}
 }
