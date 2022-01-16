@@ -4,7 +4,7 @@ namespace UnitTestBasic.Test
 {
     public class SimpleParserTest
     {
-        private SimpleParser _parser;
+        private FakeSimpleParser _parser;
 
         [SetUp]
         public void SetUp()
@@ -32,6 +32,25 @@ namespace UnitTestBasic.Test
 
             Assert.IsTrue(_parser.IsParseAndSumCalled);
         }
+
+        [Test]
+        // verify object interact with other object
+        public void SimpleParser_IsLogToDbCalled_Should_Be_True()
+        {
+            CallParseAndSum("1,2");
+
+            Assert.IsTrue(_parser.IsLogToDbCalled);
+        }
+
+        [Test]
+        // verify object interact with other object
+        public void SimpleParser_IsLogToDbCalled_Should_Be_False()
+        {
+            CallParseAndSum("1");
+
+            Assert.IsFalse(_parser.IsLogToDbCalled);
+        }
+
         private int CallParseAndSum(string numbers)
         {
             return _parser.ParseAndSum(numbers);
@@ -40,9 +59,10 @@ namespace UnitTestBasic.Test
 
     public class FakeSimpleParser : SimpleParser
     {
+        public bool IsLogToDbCalled { get; set; }
         protected override void LogToDb(string numbers, int result)
         {
-            
+            IsLogToDbCalled = true;
         }
     }
 }
