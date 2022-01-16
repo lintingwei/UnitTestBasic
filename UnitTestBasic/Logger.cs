@@ -4,9 +4,9 @@ using System.Data.SqlClient;
 
 namespace UnitTestBasic
 {
-    public class Logger
+    public class Logger : ILogger
     {
-        public static void LogToDb(string message)
+        public void LogToDb(string message)
         {
             using var conn = new SqlConnection("Data Source=.;Initial Catalog=LogDb;Persist Security Info=True;User ID=N_Logger;Password=log123;Pooling=true;min pool size=4;max pool size=32;");
             conn.Open();

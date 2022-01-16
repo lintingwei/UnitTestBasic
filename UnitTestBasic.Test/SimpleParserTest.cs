@@ -10,7 +10,7 @@ namespace UnitTestBasic.Test
         public void SetUp()
         {
             // Arrange
-            _parser = new FakeSimpleParser();
+            _parser = new FakeSimpleParser(new Logger());
         }
 
         [TestCase("0", 0, TestName = "Should return 0")]
@@ -59,6 +59,9 @@ namespace UnitTestBasic.Test
 
     public class FakeSimpleParser : SimpleParser
     {
+        public FakeSimpleParser(ILogger logger):base(logger)
+        {
+        }
         public bool IsLogToDbCalled { get; set; }
         protected override void LogToDb(string numbers, int result)
         {

@@ -5,6 +5,13 @@ namespace UnitTestBasic
 {
     public class SimpleParser
     {
+        private readonly ILogger _logger;
+
+        public SimpleParser(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public bool IsParseAndSumCalled { get; set; }  
         public int ParseAndSum(string numbers)
         {
@@ -28,7 +35,7 @@ namespace UnitTestBasic
 
         protected virtual void LogToDb(string numbers, int result)
         {
-            Logger.LogToDb($"input = {numbers}, return = {result}");
+            _logger.LogToDb($"input = {numbers}, return = {result}");
         }
     }
 }
