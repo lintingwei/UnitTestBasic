@@ -11,5 +11,11 @@ namespace UnitTestBasic
             // Actual situation might get the setting from Db
             return true;
         }
+
+        public int GetIntegerValue(string settingId)
+        {
+            // Actual situation might get the setting from Db
+            return 1;
+        }
     }
 }
